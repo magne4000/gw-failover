@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 import os
 import os.path as path
 import subprocess
@@ -68,12 +68,12 @@ if __name__=="__main__":
                 ''' Ping and is not in use, so use it ! '''
                 setroute(route)
                 changed = True
-                print 'route "%s" is now in use !' % route
+                print('route "%s" is now in use !' % route)
             else:
                 break
         else:
             if groups[0] == currentgwgroups[0] and groups[1] == currentgwgroups[1]:
                 if not changed:
-                    print 'route "%s" is dead :/' % route
+                    print('route "%s" is dead :/' % route)
                 setroute(route, 10)
 
