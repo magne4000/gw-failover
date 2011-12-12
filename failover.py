@@ -3,6 +3,7 @@ import os
 import os.path as path
 import subprocess
 import re
+import sys
 
 """
     Routes failover script
@@ -16,7 +17,7 @@ def getroutes():
     global via_re
     p = subprocess.Popen(['/bin/ip', 'route'], stdout=subprocess.PIPE)
     for line in p.stdout:
-        line = line.strip()
+        line = line.strip().decode('utf8')
         match = via_re.match(line)
         if match is not None:
             yield line
@@ -38,7 +39,7 @@ def setroute(route, metric=None):
         cmd.append(str(metric))
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
     if p.wait() != 0:
-        print >> sys.stderr, "Error: route can't be replaced"
+        print("Error: route can't be replaced", file=sys.stderr)
         return False
     return True
 
